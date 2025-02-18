@@ -1,0 +1,160 @@
+Criada pelo cientista da computação Dennis Ritchie, em 1972, a linguagem C foi derivada de outras duas: a BCPL e a Algol 68. Embora tenha sido pensada com o propósito exclusivo de ser uma linguagem de programação usada no desenvolvimento de uma nova versão do sistema operacional Unix, hoje é aplicada nos mais variados tipos de projeto.
+
+A linguagem C ainda é uma das mais populares do mercado de programação devido às diversas vantagens que apresenta. Por isso, é quase uma obrigatoriedade no currículo de uma pessoa que trabalha com desenvolvimento. Então, para iniciar seus estudos nesse assunto, vamos abordar os seguintes tópicos:
+
+Descubra o que é linguagem C
+Saiba quais são os fundamentos da linguagem C
+Confira um exemplo simples de programa em C
+Boa leitura!
+
+Descubra o que é linguagem C
+Considerada uma linguagem de alto nível genérica, a C pode ser usada em diversos tipos de projeto, como a criação de aplicativos, sistemas operacionais, drivers, entre outros. Trata-se de uma linguagem estruturada que se tornou muito popular nos anos 80 — tanto que é difícil encontrar arquiteturas para as quais não existam compiladores para a C, o que garante o seu elevado nível de portabilidade.
+
+Uma das grandes vantagens dessa linguagem é a capacidade de gerar códigos rápidos, ou seja, com um tempo de execução baixo. Além disso, a programação em C é bastante simplificada, pois sua estrutura é simples e flexível. Tendo isso em mente, podemos dizer que as principais características da linguagem C são:
+
+portabilidade;
+geração de código eficiente;
+simplicidade;
+confiabilidade;
+facilidade de uso;
+regularidade. 
+Por fim, a popularidade da linguagem C é foi grande que ela ainda influenciou diretamente a estrutura e sintaxe de outras, como C++, Objective C e C#.
+
+Saiba quais são os fundamentos da linguagem C
+Agora que você já sabe o que é a linguagem de programação C e conhece suas principais características, vamos mostrar quais são seus fundamentos básicos. Aprendendo esses conceitos, você poderá começar a praticar a programação em C.
+
+Sintaxe da Linguagem C
+A sintaxe define quais são as regras para a construção de um programa em uma determinada linguagem. Na C, assim como nas demais linguagens, tais regras estão relacionadas aos tipos, funções e declarações:
+
+tipos: definem as propriedades dos dados que serão manipulados em um código;
+funções: indicam as ações que serão executadas pelo programa quando o código estiver rodando;
+declarações: são trechos do programa que servem para alocar memória, definir funções, declarar variáveis, etc.
+Na linguagem C, existem diversas funções básicas que já estão definidas nas bibliotecas. A função scanf(), por exemplo, permite a leitura de dados vindos do teclado. Porém, a pessoa programadora pode definir outras funções de acordo com o sistema que está desenvolvendo.
+
+Além disso, cada instrução do código deve ser finalizada com “;”. Já para inserir comentários, é necessário colocá-los entre “/*” e “*/” — quando for utilizar um bloco de comentário — ou inserir “//” no início — quando o comentário for de apenas uma linha. 
+
+Identificadores
+Identificador é nome dado aos termos que são usados para nomear uma variável, constante, função, etc. Para definir um identificador, é preciso seguir algumas regras. Veja:
+
+deve ser iniciado por uma letra ou pelo símbolo “_”;
+não se deve usar espaço entre os termos;
+como C é uma linguagem case-sensitive, ela diferencia letras maiúsculas das minúsculas. Isso significa que um identificador definido como “numero” é diferente de um definido como “Numero”;
+não se pode usar caracteres especiais ou acentuação;
+é uma boa prática usar nomes que estejam relacionados ao contexto do programa.
+Exemplos de identificadores:
+
+nome;
+nomeDoAluno;
+pesoDoProduto.
+Variáveis
+Variáveis são, basicamente, uma posição na memória da máquina que identificamos por um nome (identificador). Na linguagem C, todas as variáveis precisam ser declaradas no início do programa, antes de serem usadas.
+
+Elas também devem receber um tipo, que vai determinar quais espécies de valores cada variável pode armazenar. Por fim, uma variável pode ter seu conteúdo alterado a qualquer momento.
+
+Em C, os tipos de variáveis são:
+
+char: armazena letras e símbolos;
+int: armazena números inteiros de -32767 a 32767;
+float: armazena números entre -3.4 x1038 e 3.4 x 1038 com até 6 dígitos;
+double: armazena números entre -1.7 x 10308 até +1.7 x 10308 com até 10 dígitos.
+A declaração de uma variável deve ser assim:
+
+int idade;
+char nomeDoAluno.
+No mais, junto com a declaração, a variável também pode ser inicializada dessa forma:
+
+int idade = 23.
+Palavras reservadas
+Assim como em todas as linguagens, C também apresenta palavras reservadas que não podem ser usadas para outros propósitos em um programa. Algumas delas são:
+
+if;
+do;
+while;
+return;
+default;
+else;
+for;
+void;
+switch.
+Bibliotecas da Linguagem C
+Todo programa escrito em C é iniciado com a inclusão das bibliotecas, feita pelo comando “#include”. As principais bibliotecas dessa linguagem são:
+
+stdio.h: contém funções de entrada e saída padrão, como printf;
+math.h: contém funções matemáticas, como cos e log;
+stdlib.h: contém funções da biblioteca padrão, como exit, abort e sleep.
+A inclusão de uma biblioteca é feita dessa forma:
+
+#include<stdio.h>
+Funções
+Um programa em C é constituído por um conjunto de funções, sendo que cada uma tem rotinas programadas para realizar uma tarefa específica. Essas funções permitem, também, o uso de parâmetros, que vão definir quais são os tipos de dados que a função pode receber. Ademais, toda função em C deve retornar um valor único, sendo que ele precisa ser do mesmo tipo que o da função.
+
+Veja como é a estrutura básica de uma função:
+
+tipo_de_retorno nomeDaFuncao (lista de parâmetros)
+
+{
+
+Aqui é o corpo da função, onde indicamos os comandos que serão executados.
+
+}
+Agora, veja um exemplo básico de função:
+
+void mensagem() 
+
+ {
+
+ printf("Olá, mundo!");
+
+ } 
+No exemplo acima, a função imprime a mensagem “Olá, mundo!” na tela. Perceba que o tipo da função foi definido como “void” — isso significa que, nela, há ausência de retorno. No exemplo, também não há listagem de parâmetros, pois ela é opcional em alguns casos.
+
+Função main()
+A função main() é de extrema importância na linguagem C. Isso porque ela determina o início da execução de um programa, além de controlar o fluxo de chamadas para as demais funções e procedimentos do código.
+
+Assim, a estrutura básica que usamos para definir essa função em um programa é:
+
+int main()
+
+{
+Aqui vão os comandos do código
+}
+Confira um exemplo simples de programa em Linguagem C
+Agora, você já conhece os fundamentos mais básicos da linguagem C. Então, para finalizar, vamos mostrar um exemplo simples de programa nessa linguagem.
+
+Basicamente, no código, é definida a função “Soma”, que é chamada dentro da função main, e recebe como parâmetros os valores definidos nas variáveis “a” e “b”. Esses valores são somados e o resultado é retornado pela função, sendo armazenado na variável “resultadoDaSoma”. Por fim, uma mensagem mostrando o valor da soma é exibida na tela.
+
+#include <stdio.h> 
+
+int Soma(int a, int b)  
+
+{
+
+   int resultado;     
+
+   resultado = a + b;
+
+   return resultado;
+
+}
+
+int main()
+
+{
+
+int a, b, resultadoDaSoma;
+
+a = 10;
+
+b = 12;
+
+resultadoDaSoma = Soma(a,b); // a variável resultadoDaSoma recebe o valor de retorno da função Soma
+
+ printf("A soma de %d com %d é %d", a,b,resultadoDaSoma); 
+
+ return 0;
+
+}
+Quais as diferenças entre a linguagem C e C++?
+A linguagem C++ é orientada a objetos, enquanto a linguagem C é orientada a procedimentos. Apesar de muito parecida com a linguagem C, a linguagem C++ pode ser considerada mais adaptável.
+
+Viu como a linguagem C não é nenhum bicho de sete cabeças? No início, pode até parecer complicado. Mas basta um pouco de dedicação e esforço para aprendê-la sem grandes problemas.
