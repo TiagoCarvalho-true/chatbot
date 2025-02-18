@@ -1,9 +1,87 @@
 from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
+from collections import deque
 import sys
 import os
 import certifi
 import ssl
 import json
+
+class MemoriaChatbot:
+    def __init__(self, tamanho_max=5):
+        self.historico = deque(maxlen=tamanho_max)
+        self.conhecimento_base = []
+        self.memoria_longa = []  # Nova lista para memória de longo prazo
+        
+    def adicionar_conversa(self, entrada, resposta, importante=False):
+        self.historico.append({"entrada": entrada, "resposta": resposta})
+        if importante:
+            self.memoria_longa.append({"entrada": entrada, "resposta": resposta})
+def obter_contexto_completo(self):
+        # Combina conhecimento base com histórico
+        contexto = []
+        
+        # Adiciona conhecimento base
+        if self.conhecimento_base:
+            contexto.append("Conhecimento Base:")
+            contexto.extend(self.conhecimento_base)
+        
+        # Adiciona memória de longo prazo
+        if self.memoria_longa:
+            contexto.append("\nAprendizado Importante:")
+            for mem in self.memoria_longa[-3:]:  # Últimas 3 memórias importantes
+                contexto.append(f"P: {mem['entrada']}")
+                contexto.append(f"R: {mem['resposta']}")
+        
+        # Adiciona histórico recente
+        contexto.append("\nConversa Atual:")
+        for item in self.historico:
+            contexto.append(f"Humano: {item['entrada']}")
+            contexto.append(f"Bot: {item['resposta']}")
+            
+        return "\n".join(contexto)
+      
+def processar_resposta(chatbot, entrada, memoria, temperatura=0.7):
+    """Processa a entrada e gera uma resposta mais elaborada"""
+    
+    # Análise de relevância da entrada
+    palavras_chave = ['porque', 'como', 'explique', 'qual', 'por que', 'define']
+    entrada_importante = any(palavra in entrada.lower() for palavra in palavras_chave)
+    
+    # Obtém contexto completo
+    contexto_completo = memoria.obter_contexto_completo()
+    
+    # Prepara o prompt com instruções específicas
+    prompt = f"""
+    Baseado no seguinte contexto e conhecimento:
+    {contexto_completo}
+    
+    Por favor, responda à seguinte pergunta de forma {
+        'detalhada e explicativa' if entrada_importante else 'simples e direta'
+    }:
+    
+    Humano: {entrada}
+    Bot:"""
+    
+    respostas = []
+    for temp in [temperatura, temperatura + 0.2]:
+        resposta = chatbot(
+            prompt,
+            max_length=300 if entrada_importante else 150,
+            num_return_sequences=2,
+            temperature=temp,
+            pad_token_id=tokenizer.eos_token_id,
+            top_p=0.9,
+            repetition_penalty=1.2
+        )
+        respostas.extend([r['generated_text'] for r in resposta])
+    
+    # Escolhe a melhor resposta
+    melhor_resposta = max(respostas, key=len)
+    
+    # Atualiza a memória
+    memoria.adicionar_conversa(entrada, melhor_resposta, importante=entrada_importante)
+    
+    return melhor_resposta
 
 def carregar_conhecimento_arquivo(pasta="conhecimento"):
     """Carrega conhecimento de arquivos txt e json"""
@@ -59,7 +137,8 @@ def iniciar_chatbot():
         print("Inicializando o chatbot... Por favor, aguarde...")
 
         # Base de conhecimento
-        conhecimento = carregar_conhecimento_arquivo()
+        memoria=MemoriaChatbot(tamanho_max=10)
+        memoria.conhecimento = carregar_conhecimento_arquivo()
         
         # Carrega o modelo GPT2 em português
         modelo = "pierreguillou/gpt2-small-portuguese"
@@ -111,23 +190,13 @@ def iniciar_chatbot():
                         print("Chatbot: Por favor, forneça alguma informação para eu aprender.")
                     continue
 
-                # Gera resposta considerando o conhecimento atual
-                contexto = "\n".join(conhecimento)
-                prompt = f"{contexto}\nPergunta: {entrada}\nResposta:"
-                
-                resposta = chatbot(
-                    prompt,
-                    max_length=150,  # Aumentado para respostas mais completas
-                    num_return_sequences=1,
-                    temperature=0.7,
-                    pad_token_id=tokenizer.eos_token_id
-                )[0]['generated_text']
-                
+                resposta = processar_resposta(chatbot, entrada, memoria, temperatura=0.7)
                 print(f"Chatbot: {resposta}")
                 
             except KeyboardInterrupt:
-                print("\nChatbot: Conversa interrompida pelo usuário.")
-                break
+                 print("\nChatbot: Salvando memória antes de encerrar...")
+                 salvar_conhecimento(memoria.conhecimento_base)
+                 break
                 
     except Exception as e:
         print(f"Erro ao iniciar o chatbot: {str(e)}")
